@@ -3,16 +3,18 @@
 //   data-layout="classic|duel"   classic = original arrangement; duel = player panels flank the board, buttons underneath
 //   data-swap="true"             duel only: player 1 on the right instead of the left
 //   data-pdock="top|middle|bottom"  duel only: vertical position of the player panels beside the board
+//   data-bstyle="icon|iconlabel|text"  control buttons: icons only (label stays for screen readers + tooltip), icon over label, or the original text
 //   data-hist="drawer|docked"    drawer = word log hidden until asked for (default); docked = always in the layout (old behaviour)
 import { $ } from './state.js';
 import { applyHistMode } from './histview.js';
 
 const KEY = 'scrabble.layout';
-const DEF = { layout: 'classic', p1: 'left', pdock: 'bottom', hist: 'drawer' };
+const DEF = { layout: 'classic', p1: 'left', pdock: 'bottom', bstyle: 'icon', hist: 'drawer' };
 const ROWS = [
   ['layout', 'التخطيط', [['classic', 'كلاسيكي'], ['duel', 'مواجهة']]],
   ['p1', 'موضع اللاعب الأول', [['left', 'يسار'], ['right', 'يمين']]],
   ['pdock', 'ارتفاع لوحات اللاعبين', [['top', 'أعلى'], ['middle', 'وسط'], ['bottom', 'أسفل']]],
+  ['bstyle', 'أزرار التحكم', [['icon', 'أيقونات'], ['iconlabel', 'أيقونة + نص'], ['text', 'نص فقط']]],
   ['hist', 'سجل الكلمات', [['drawer', 'عند الطلب'], ['docked', 'مثبّت']]]
 ];
 const ok = (k, v) => ROWS.find(r => r[0] === k)[2].some(o => o[0] === v);
@@ -24,6 +26,7 @@ function apply() {
   if (pref.layout === 'duel') d.layout = 'duel'; else delete d.layout;
   if (pref.layout === 'duel' && pref.p1 === 'right') d.swap = 'true'; else delete d.swap;
   d.pdock = pref.pdock;
+  d.bstyle = pref.bstyle;
   d.hist = pref.hist;
   applyHistMode(pref.hist);
 }
@@ -35,7 +38,14 @@ function build() {
     + '</div></div>').join('');
 }
 
+// Tooltip = current label (the labels change at runtime, e.g. swap mode), so icon-only buttons are never anonymous.
+function syncTitles() {
+  document.querySelectorAll('.ctrls .btn').forEach(b => { const t = b.querySelector('.lbl')?.textContent; if (t && b.title !== t) b.title = t; });
+}
+
 export function initLayout() {
+  syncTitles();
+  new MutationObserver(syncTitles).observe(document.querySelector('.ctrls'), { childList: true, characterData: true, subtree: true });
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
     if (s && typeof s === 'object') for (const k of Object.keys(DEF)) if (ok(k, s[k])) pref[k] = s[k];

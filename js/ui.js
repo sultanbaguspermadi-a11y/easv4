@@ -90,9 +90,9 @@ function renderPlayers() {
 }
 function renderControls() {
   const mv = S.move.length > 0, E = S.ended;
-  $('#bSubmit').textContent = S.swap ? `تأكيد التبديل (${S.sel.size})` : 'احتساب';
+  $('#bSubmit .lbl').textContent = S.swap ? `تأكيد التبديل (${S.sel.size})` : 'احتساب';
   $('#bSubmit').disabled = E || (S.swap ? !S.sel.size : !mv);
-  $('#bCancel').textContent = S.swap ? 'إلغاء التبديل' : 'إلغاء الحركة';
+  $('#bCancel .lbl').textContent = S.swap ? 'إلغاء التبديل' : 'إلغاء الحركة';
   $('#bCancel').disabled = E || (!S.swap && !mv);
   $('#bSwap').disabled = E || S.swap || mv;
   $('#bPass').disabled = E || S.swap || mv;

@@ -239,4 +239,20 @@ html[data-layout="duel"] .ctrls .btn{font-size:calc(clamp(.72rem,var(--bs)/36,1r
 html[data-layout="duel"] .phead{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"n t s"}
 html[data-layout="duel"] .ctrls{grid-template-columns:repeat(4,1fr)}
 }
+/* Control buttons: icon + label markup always present; data-bstyle decides what is shown */
+.ctrls .btn{display:flex;align-items:center;justify-content:center;gap:.4em;position:relative}
+.ic{width:1.2em;height:1.2em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ic.flip{transform:scaleX(-1)}
+html[data-bstyle="text"] .ctrls .ic{display:none}
+html[data-bstyle="icon"] .ctrls,html[data-bstyle="iconlabel"] .ctrls{grid-template-columns:repeat(auto-fit,minmax(calc(40px*var(--btn-scale)),1fr))}
+html[data-bstyle="icon"] .ctrls .wide,html[data-bstyle="iconlabel"] .ctrls .wide{grid-column:auto}
+html[data-bstyle="icon"] .ctrls .ic{width:1.5em;height:1.5em}
+html[data-bstyle="icon"] .ctrls .main{grid-column:span 2}
+html[data-bstyle="icon"] .ctrls .btn:not(.main) .lbl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html[data-bstyle="iconlabel"] .ctrls{grid-template-columns:repeat(auto-fit,minmax(calc(64px*var(--btn-scale)),1fr))}
+html[data-bstyle="iconlabel"] .ctrls .btn{flex-direction:column;gap:2px;line-height:1.1;padding-block:3px}
+html[data-bstyle="iconlabel"] .ctrls .lbl{font-size:.68em;font-weight:600}
+html[data-bstyle="iconlabel"] .ctrls .ic{width:1.35em;height:1.35em}
+@media(orientation:landscape) and (min-width:700px) and (min-height:560px){
+html[data-layout="duel"][data-bstyle="icon"] .app{--ov:calc(116px + 46px*var(--btn-scale) + var(--btn-gap))}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
