@@ -69,6 +69,7 @@ Device preferences stored in `localStorage` under `scrabble.layout`; they only s
 
 - **التخطيط**: *كلاسيكي* (original) or *مواجهة* (player panels on either side of the board, buttons underneath). Short landscape phones always use the classic arrangement.
 - **موضع اللاعب الأول**: left or right (duel only).
+- **ارتفاع لوحات اللاعبين**: top / middle / bottom (default) position of the two panels beside the board (duel only). In duel on landscape screens (≥700×560) the board is sized from the real vertical overhead, so everything fits the viewport without scrolling.
 - **سجل الكلمات**: *عند الطلب* (default) keeps the log out of the layout and opens it from a button as a drawer (close with the button or Esc); *مثبّت* keeps the original always-visible panel with its hide/show toggle.
 
 Note: `tests/layout/history-toggle*.mjs` assume the docked log, so set `scrabble.layout` to `{"hist":"docked"}` before they run.

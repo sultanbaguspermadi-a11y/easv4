@@ -6,7 +6,7 @@
 <title>Arabic Scrabble — Integrated Version</title>
 <!-- Pre-paint: reuse the saved theme id so there is no flash of the default theme. An unknown id simply matches no theme block, i.e. classic. themes.js validates it again at startup. -->
 <script>try{var t=localStorage.getItem('scrabble.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
-try{var d=document.documentElement.dataset;d.hist='drawer';var l=JSON.parse(localStorage.getItem('scrabble.layout'))||{};if(l.layout==='duel'){d.layout='duel';if(l.p1==='right')d.swap='true'}if(l.hist==='docked')d.hist='docked'}catch(e){}</script>
+try{var d=document.documentElement.dataset;d.hist='drawer';var l=JSON.parse(localStorage.getItem('scrabble.layout'))||{};d.pdock=/^(top|middle)$/.test(l.pdock)?l.pdock:'bottom';if(l.layout==='duel'){d.layout='duel';if(l.p1==='right')d.swap='true'}if(l.hist==='docked')d.hist='docked'}catch(e){}</script>
 <link rel="stylesheet" href="css/themes.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/cover.css">

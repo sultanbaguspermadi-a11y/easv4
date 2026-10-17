@@ -215,15 +215,27 @@ html[data-layout="duel"] .board{width:min(100%,calc(720px*var(--board-scale)));m
 html[data-layout="duel"] .phead{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n s" "t t"}
 html[data-layout="duel"]:not([data-hist="drawer"]) .hist{grid-area:hist;height:min(calc(260px*var(--hist-hs)),40dvh);contain:none}
 }
-@media(min-width:900px) and (min-height:560px){
-html[data-layout="duel"] .app{--bs:max(300px,min(calc((100dvh - 210px)*var(--board-scale)),calc(100vw - 560px),calc(880px*var(--board-scale))));
+/* Any landscape screen at least 700x560: panels | board | panels. --ov is the real vertical overhead (padding, message bar, bag row, two button rows,
+   gaps), so board + overhead always equals the viewport height and the page never needs scrolling; width is the other limit. */
+@media(orientation:landscape) and (min-width:700px) and (min-height:560px){
+html[data-layout="duel"] .app{--ov:calc(116px + 2*46px*var(--btn-scale) + var(--btn-gap));
+--bs:max(260px,min(calc((100dvh - var(--ov))*var(--board-scale)),calc(100vw - 460px),calc(880px*var(--board-scale))));
 grid-template-columns:minmax(0,1fr) var(--bs) minmax(0,1fr);
 grid-template-areas:". toast ." "p2 board p1" "p2 ctrls p1" "hist hist hist"}
 html[data-layout="duel"][data-swap="true"] .app{grid-template-areas:". toast ." "p1 board p2" "p1 ctrls p2" "hist hist hist"}
 html[data-layout="duel"][data-hist="drawer"] .app{grid-template-areas:". toast ." "p2 board p1" "p2 ctrls p1"}
 html[data-layout="duel"][data-hist="drawer"][data-swap="true"] .app{grid-template-areas:". toast ." "p1 board p2" "p1 ctrls p2"}
 html[data-layout="duel"] .board{width:var(--bs)}
-html[data-layout="duel"] .panel{align-self:start}
+html[data-layout="duel"] .panel{align-self:end}
+html[data-layout="duel"][data-pdock="top"] .panel{align-self:start}
+html[data-layout="duel"][data-pdock="middle"] .panel{align-self:center}
+html[data-layout="duel"] .boardWrap{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px}
+html[data-layout="duel"] .board{grid-column:1/-1}
+html[data-layout="duel"] .bag{grid-column:1/-1;margin-top:6px}
+html[data-layout="duel"][data-hist="drawer"] .bag{grid-column:1;text-align:start}
+html[data-layout="duel"] .logBtn{margin:6px 0 0;min-width:0;min-height:calc(34px*var(--btn-scale));padding-inline:16px}
+html[data-layout="duel"] #toast{min-height:32px}
+html[data-layout="duel"] .ctrls .btn{font-size:calc(clamp(.72rem,var(--bs)/36,1rem)*var(--btn-scale))}
 html[data-layout="duel"] .phead{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"n t s"}
 html[data-layout="duel"] .ctrls{grid-template-columns:repeat(4,1fr)}
 }

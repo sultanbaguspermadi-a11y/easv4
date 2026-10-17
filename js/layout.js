@@ -2,15 +2,17 @@
 // Nothing here touches game state, scoring, board coordinates or the timer.
 //   data-layout="classic|duel"   classic = original arrangement; duel = player panels flank the board, buttons underneath
 //   data-swap="true"             duel only: player 1 on the right instead of the left
+//   data-pdock="top|middle|bottom"  duel only: vertical position of the player panels beside the board
 //   data-hist="drawer|docked"    drawer = word log hidden until asked for (default); docked = always in the layout (old behaviour)
 import { $ } from './state.js';
 import { applyHistMode } from './histview.js';
 
 const KEY = 'scrabble.layout';
-const DEF = { layout: 'classic', p1: 'left', hist: 'drawer' };
+const DEF = { layout: 'classic', p1: 'left', pdock: 'bottom', hist: 'drawer' };
 const ROWS = [
   ['layout', 'التخطيط', [['classic', 'كلاسيكي'], ['duel', 'مواجهة']]],
   ['p1', 'موضع اللاعب الأول', [['left', 'يسار'], ['right', 'يمين']]],
+  ['pdock', 'ارتفاع لوحات اللاعبين', [['top', 'أعلى'], ['middle', 'وسط'], ['bottom', 'أسفل']]],
   ['hist', 'سجل الكلمات', [['drawer', 'عند الطلب'], ['docked', 'مثبّت']]]
 ];
 const ok = (k, v) => ROWS.find(r => r[0] === k)[2].some(o => o[0] === v);
@@ -21,6 +23,7 @@ function apply() {
   const d = document.documentElement.dataset;
   if (pref.layout === 'duel') d.layout = 'duel'; else delete d.layout;
   if (pref.layout === 'duel' && pref.p1 === 'right') d.swap = 'true'; else delete d.swap;
+  d.pdock = pref.pdock;
   d.hist = pref.hist;
   applyHistMode(pref.hist);
 }
@@ -28,7 +31,7 @@ function apply() {
 function build() {
   $('#lyB').innerHTML = ROWS.map(([k, label, opts]) =>
     `<div class="segRow"><div class="setRowHead">${label}</div><div class="seg" role="group" aria-label="${label}">`
-    + opts.map(([v, t]) => `<button type="button" class="btn" data-k="${k}" data-v="${v}" aria-pressed="${pref[k] === v}"${k === 'p1' && pref.layout !== 'duel' ? ' disabled' : ''}>${t}</button>`).join('')
+    + opts.map(([v, t]) => `<button type="button" class="btn" data-k="${k}" data-v="${v}" aria-pressed="${pref[k] === v}"${(k === 'p1' || k === 'pdock') && pref.layout !== 'duel' ? ' disabled' : ''}>${t}</button>`).join('')
     + '</div></div>').join('');
 }
 
