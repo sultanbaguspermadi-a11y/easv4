@@ -50,6 +50,7 @@ export function initLayout() {
   makeFloating($('#hist'), 'hist', document.querySelector('#hist h2'), () => [8, 8]);
   ad.addEventListener('close', () => gameInert(false));
   ad.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); ad.close(); } });   // non-modal dialogs ignore Esc natively
+  $('#aClose').addEventListener('click', () => ad.close());
   $('#flReset').addEventListener('click', resetFloats);
   syncTitles();
   new MutationObserver(syncTitles).observe(document.querySelector('.ctrls'), { childList: true, characterData: true, subtree: true });

@@ -40,7 +40,7 @@ try{var d=document.documentElement.dataset;d.hist='drawer';var l=JSON.parse(loca
 <dialog id="bd" aria-labelledby="bT"><h2 id="bT" tabindex="-1" autofocus>اختر الحرف</h2><form method="dialog" id="bf"></form><form method="dialog" class="dlgRow"><button class="btn" value="">إلغاء</button></form></dialog>
 <dialog id="jd" aria-labelledby="jT"><h2 id="jT" tabindex="-1" autofocus></h2><div id="jB"></div></dialog>
 <dialog id="ad" aria-labelledby="aT">
-<h2 id="aT" tabindex="-1">الإعدادات</h2>
+<div class="fHead"><h2 id="aT" tabindex="-1">الإعدادات</h2><button type="button" class="btn fClose" id="aClose" aria-label="إغلاق" title="إغلاق"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
 <div class="setPanel">
 <h3 class="setH">المظهر</h3>
 <div class="thGrid" id="thB" role="group" aria-label="المظهر"></div>
@@ -50,7 +50,6 @@ try{var d=document.documentElement.dataset;d.hist='drawer';var l=JSON.parse(loca
 <div class="dimList" id="dmB"></div>
 <button class="btn" id="dmReset" type="button">إعادة ضبط الأبعاد</button>
 <button class="btn" id="flReset" type="button">إعادة مواضع النوافذ العائمة</button>
-<form method="dialog"><button class="btn" value="">إغلاق</button></form>
 </div>
 </dialog>
 <section id="cover" class="cover" aria-label="Arabic Scrabble Integrated Version" hidden>

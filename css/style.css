@@ -263,4 +263,9 @@ html[data-hist="drawer"] .hist{inset:auto;width:min(calc(100vw - 16px),380px);he
 #ad .floatHandle::before,html[data-hist="drawer"] .hist .floatHandle::before{content:"⠿";position:absolute;inset-inline-start:0;opacity:.55}
 #ad .floatHandle:active,html[data-hist="drawer"] .hist .floatHandle:active{cursor:grabbing}
 .floatHandle:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+/* Settings title bar: sticky so the ✕ stays reachable while the panel scrolls */
+.fHead{position:sticky;top:-18px;z-index:2;display:flex;align-items:center;gap:8px;margin:-18px -18px 8px;padding:12px 18px 6px;background:var(--dialog-bg);border-radius:12px 12px 0 0}
+.fHead h2{flex:1;margin:0}
+.fClose{flex:none;width:36px;min-height:36px;height:36px;padding:0;border-radius:50%}
+.fClose .ic{width:1.3em;height:1.3em}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
