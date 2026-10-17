@@ -1,3 +1,4 @@
+import { showFloat } from './float.js';
 // Show/hide toggle for the word history (سجل الكلمات). A view preference only, like the theme: it never touches game state.
 // Hiding adds the `history-hidden` class to the existing .hist element. The element is never removed, never display:none and
 // its grid area is untouched, so its footprint (and therefore every other element's position) cannot change. Only its
@@ -30,6 +31,7 @@ const drawerOpen = () => $('#hist').classList.contains('open');
 
 export function setDrawerOpen(open, focus = true) {
   $('#hist').classList.toggle('open', open);
+  if (open) showFloat('hist');
   $('#bLog').setAttribute('aria-expanded', String(open));
   $('#hToggle').setAttribute('aria-expanded', String(open));
   $('#hToggle').textContent = open ? 'إغلاق' : LABEL.show;

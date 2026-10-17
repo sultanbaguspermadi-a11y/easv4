@@ -255,4 +255,12 @@ html[data-bstyle="iconlabel"] .ctrls .ic{width:1.35em;height:1.35em}
 @media(orientation:landscape) and (min-width:700px) and (min-height:560px){
 html[data-layout="duel"][data-bstyle="icon"] .app{--ov:calc(116px + 46px*var(--btn-scale) + var(--btn-gap))}
 }
+/* Floating windows (js/float.js): settings + word-log drawer share one look and one behaviour */
+#ad{position:fixed;inset:auto;margin:0;max-width:calc(100vw - 16px);max-height:min(72dvh,calc(100dvh - 16px));box-shadow:0 12px 40px #000c}
+html[data-hist="drawer"] .hist{inset:auto;width:min(calc(100vw - 16px),380px);height:min(70dvh,calc(560px*var(--hist-hs)),calc(100dvh - 16px))}
+.floatHandle{user-select:none}
+#ad .floatHandle,html[data-hist="drawer"] .hist .floatHandle{position:relative;cursor:grab;touch-action:none;padding-inline-start:1.4em;border-radius:6px}
+#ad .floatHandle::before,html[data-hist="drawer"] .hist .floatHandle::before{content:"⠿";position:absolute;inset-inline-start:0;opacity:.55}
+#ad .floatHandle:active,html[data-hist="drawer"] .hist .floatHandle:active{cursor:grabbing}
+.floatHandle:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

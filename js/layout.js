@@ -7,6 +7,7 @@
 //   data-hist="drawer|docked"    drawer = word log hidden until asked for (default); docked = always in the layout (old behaviour)
 import { $ } from './state.js';
 import { applyHistMode } from './histview.js';
+import { makeFloating, resetFloats, gameInert } from './float.js';
 
 const KEY = 'scrabble.layout';
 const DEF = { layout: 'classic', p1: 'left', pdock: 'bottom', bstyle: 'icon', hist: 'drawer' };
@@ -15,7 +16,7 @@ const ROWS = [
   ['p1', 'موضع اللاعب الأول', [['left', 'يسار'], ['right', 'يمين']]],
   ['pdock', 'ارتفاع لوحات اللاعبين', [['top', 'أعلى'], ['middle', 'وسط'], ['bottom', 'أسفل']]],
   ['bstyle', 'أزرار التحكم', [['icon', 'أيقونات'], ['iconlabel', 'أيقونة + نص'], ['text', 'نص فقط']]],
-  ['hist', 'سجل الكلمات', [['drawer', 'عند الطلب'], ['docked', 'مثبّت']]]
+  ['hist', 'سجل الكلمات', [['drawer', 'عائم عند الطلب'], ['docked', 'مثبّت']]]
 ];
 const ok = (k, v) => ROWS.find(r => r[0] === k)[2].some(o => o[0] === v);
 
@@ -44,6 +45,12 @@ function syncTitles() {
 }
 
 export function initLayout() {
+  const ad = $('#ad');
+  makeFloating(ad, 'settings', $('#aT'), el => [(innerWidth - el.offsetWidth) / 2, innerHeight - el.offsetHeight - 8]);
+  makeFloating($('#hist'), 'hist', document.querySelector('#hist h2'), () => [8, 8]);
+  ad.addEventListener('close', () => gameInert(false));
+  ad.addEventListener('keydown', e => { if (e.key === 'Escape') { e.preventDefault(); ad.close(); } });   // non-modal dialogs ignore Esc natively
+  $('#flReset').addEventListener('click', resetFloats);
   syncTitles();
   new MutationObserver(syncTitles).observe(document.querySelector('.ctrls'), { childList: true, characterData: true, subtree: true });
   try {

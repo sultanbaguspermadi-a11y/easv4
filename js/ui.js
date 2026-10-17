@@ -1,3 +1,4 @@
+import { showFloat, gameInert } from './float.js';
 // DOM rendering, toasts and dialogs. Reads state; never mutates game rules.
 import { SIZE, DURATIONS, BINGO, TOAST_MS, LAYOUT, GLYPH, FACE, LABEL, NAMES } from './config.js';
 import { TILE_MODES } from './modes.js';
@@ -53,7 +54,7 @@ export function chooseDuration() {
   $('#sd').returnValue = ''; $('#sd').showModal();
 }
 export function openBlankPicker() { $('#bd').returnValue = ''; $('#bd').showModal(); }
-export function openSettings() { S.paused = true; syncDimRows(); $('#ad').showModal(); }
+export function openSettings() { S.paused = true; syncDimRows(); gameInert(true); $('#ad').show(); showFloat('settings'); $('#aT').focus(); }
 
 // ---------- Rendering (DOM is only touched when a cell/rack/list actually changed) ----------
 const sqHTML = k => {
