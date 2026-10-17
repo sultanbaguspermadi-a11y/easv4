@@ -113,7 +113,7 @@ js/
   ui.js           rendering and dialogs (including mode and duration selection, blank picker)
   input.js        click/tap, keyboard, drag and drop, buttons, dialog flow
   dims.js         interface dimension settings
-  cover.js        animated cover screen
+  cover.js        cover screen (title in game tiles)
   main.js         start-up
 
 tests/            dev-only tests (not needed to play; see "Tests")
